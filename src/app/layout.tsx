@@ -31,7 +31,7 @@ export default function RootLayout({
           data-new-gr-c-s-check-loaded="14.1224.0"
           data-gr-ext-installed=""
           cz-shortcut-listen="true"
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.className} antialiased`}
         >
           <Toaster position="top-right" richColors />
           {children}

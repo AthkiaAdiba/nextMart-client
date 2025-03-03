@@ -2,7 +2,7 @@
 "use client";
 
 import ReCAPTCHA from "react-google-recaptcha";
-import Logo from "@/app/assets/svgs/Logo";
+import Logo from "@/assets/svgs/Logo";
 import { Button } from "@/components/ui/button";
 import {
   Form,
