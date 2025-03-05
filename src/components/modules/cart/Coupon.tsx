@@ -27,7 +27,7 @@ export default function Coupon() {
   };
 
   return (
-    <div className="border-2 border-white bg-background brightness-105 rounded-md col-span-4  p-5 ">
+    <div className="border-2 border-white bg-background brightness-105 rounded-md col-span-4 p-5 shadow-md">
       <div className="flex flex-col justify-between h-full">
         <h1 className="text-2xl font-bold">Use Coupon code</h1>
         <p className="text-gray-500">Enter your coupon code if you have one.</p>
