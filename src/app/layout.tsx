@@ -25,18 +25,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Providers>
-      <html lang="en">
-        <body
-          data-new-gr-c-s-check-loaded="14.1224.0"
-          data-gr-ext-installed=""
-          cz-shortcut-listen="true"
-          className={`${geistSans.variable} ${geistMono.className} antialiased`}
-        >
+    <html lang="en">
+      <body
+        data-new-gr-c-s-check-loaded="14.1226.0"
+        data-gr-ext-installed=""
+        cz-shortcut-listen="true"
+        className={`${geistSans.variable} ${geistMono.className} antialiased`}
+      >
+        <Providers>
           <Toaster position="top-right" richColors />
           {children}
-        </body>
-      </html>
-    </Providers>
+        </Providers>
+      </body>
+    </html>
   );
 }

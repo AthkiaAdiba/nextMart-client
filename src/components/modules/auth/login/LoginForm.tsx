@@ -21,11 +21,14 @@ import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useUser } from "@/context/UserContext";
 
 const LoginForm = () => {
   const form = useForm({
     resolver: zodResolver(loginSchema),
   });
+
+  const { setIsLoading } = useUser();
 
   const [recaptchaStatus, setRecaptchaStatus] = useState(false);
 
@@ -40,6 +43,7 @@ const LoginForm = () => {
   const handleRecaptcha = async (value: string | null) => {
     try {
       const res = await reCaptchaTokenVerification(value!);
+      setIsLoading(true);
 
       if (res.success) {
         setRecaptchaStatus(true);

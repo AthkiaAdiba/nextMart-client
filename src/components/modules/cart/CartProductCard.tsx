@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { currencyFormatter } from "@/lib/currencyFormatter";
 import {
@@ -40,7 +42,7 @@ export default function CartProductCard({ product }: { product: cartProduct }) {
         <h1 className="text-xl font-semibold">{product?.name}</h1>
         <div className="flex gap-5 my-2">
           <p>
-            <span className="text-gray-500">Color:</span>{" "}
+            <span className="text-gray-500">Color:</span>
             <span className="font-semibold">Black</span>
           </p>
           <p>

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
+import { getValidToken } from "@/lib/verifyToken";
 import { revalidateTag } from "next/cache";
-import { cookies } from "next/headers";
 
 //  get all brands
 export const getAllBrands = async () => {
@@ -20,12 +20,16 @@ export const getAllBrands = async () => {
 
 // create brand
 export const createBrand = async (brandData: FormData): Promise<any> => {
+  const token = await getValidToken();
+
+  // console.log("from create brand", await isTokenExpired(token));
+
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/brand`, {
       method: "POST",
       body: brandData,
       headers: {
-        Authorization: (await cookies()).get("accessToken")!.value,
+        Authorization: token,
       },
     });
     revalidateTag("Brands");
@@ -37,13 +41,15 @@ export const createBrand = async (brandData: FormData): Promise<any> => {
 
 // delete brand
 export const deleteBrand = async (brandId: string): Promise<any> => {
+  const token = await getValidToken();
+
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/brand/${brandId}`,
       {
         method: "DELETE",
         headers: {
-          Authorization: (await cookies()).get("accessToken")!.value,
+          Authorization: token,
         },
       }
     );

@@ -21,3 +21,31 @@ export const createOrder = async (order: IOrder) => {
     return Error(error);
   }
 };
+
+export const addCoupon = async ({
+  shopId,
+  subTotal,
+  couponCode,
+}: {
+  shopId: string;
+  subTotal: number;
+  couponCode: string;
+}) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/coupon/${couponCode}`,
+      {
+        method: "POST",
+        headers: {
+          authorization: (await cookies()).get("accessToken")!.value,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ orderAmount: subTotal, shopId }),
+      }
+    );
+
+    return await res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};

@@ -7,6 +7,8 @@ import { currencyFormatter } from "@/lib/currencyFormatter";
 import {
   citySelector,
   clearCart,
+  couponSelector,
+  discountAmountSelector,
   grandTotalSelector,
   orderedProductsSelector,
   orderSelector,
@@ -22,11 +24,13 @@ import { toast } from "sonner";
 const PaymentDetails = () => {
   const subTotal = useAppSelector(subTotalSelector);
   const shippingCost = useAppSelector(shippingCostSelector);
+  const discountAmount = useAppSelector(discountAmountSelector);
   const grandTotal = useAppSelector(grandTotalSelector);
   const city = useAppSelector(citySelector);
   const shippingAddress = useAppSelector(shippingAddressSelector);
   const order = useAppSelector(orderSelector);
   const cartProducts = useAppSelector(orderedProductsSelector);
+  const coupon = useAppSelector(couponSelector);
   const user = useUser();
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -53,7 +57,18 @@ const PaymentDetails = () => {
         throw new Error("Shipping Address is missing!");
       }
 
-      const res = await createOrder(order);
+      let orderData;
+
+      if (coupon.code) {
+        orderData = {
+          ...order,
+          coupon: coupon.code,
+        };
+      } else {
+        orderData = order;
+      }
+
+      const res = await createOrder(orderData);
       console.log(res);
 
       if (res.success) {
@@ -78,7 +93,9 @@ const PaymentDetails = () => {
         </div>
         <div className="flex justify-between">
           <p className="text-gray-500 ">Discount</p>
-          <p className="font-semibold">{currencyFormatter(0)}</p>
+          <p suppressHydrationWarning className="font-semibold">
+            {currencyFormatter(discountAmount)}
+          </p>
         </div>
         <div className="flex justify-between">
           <p className="text-gray-500 ">Shipment Cost</p>
